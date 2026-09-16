@@ -1,15 +1,11 @@
-/* =========================================
-   VARIÁVEIS DE CORES (Identidade Visual)
-========================================= */
 :root {
     --bg-header: #121212;
     --bg-menu: #000000;
-    --bg-principal: #525252; /* Cinza escuro do fundo */
-    --cor-destaque: #BB86FC; /* Roxo Resonance */
+    --bg-principal: #525252;
+    --cor-destaque: #BB86FC;
     --texto-branco: #FFFFFF;
 }
 
-/* RESET BÁSICO */
 * {
     margin: 0;
     padding: 0;
@@ -25,9 +21,6 @@ body {
     flex-direction: column;
 }
 
-/* =========================================
-   CABEÇALHO (Topo)
-========================================= */
 header {
     background-color: var(--bg-header);
     display: flex;
@@ -57,9 +50,6 @@ header h1 {
     font-weight: 500;
 }
 
-/* =========================================
-   CONTAINER E BARRA LATERAL (Menu)
-========================================= */
 .app-container {
     display: flex;
     flex: 1;
@@ -67,7 +57,7 @@ header h1 {
     overflow: hidden;
 }
 
-/* Estilo do Menu Lateral (Quando fechado, fica escondido para a esquerda) */
+/* Estilo do Menu Lateral */
 aside {
     background-color: var(--bg-menu);
     width: 280px;
@@ -85,12 +75,11 @@ aside {
     border-right: 1px solid #1a1a1a;
 }
 
-/* Classe acionada pelo JavaScript para abrir o menu */
+/* JavaScript para abrir o menu */
 aside.aberto {
     transform: translateX(0);
 }
 
-/* Perfil no Topo do Menu */
 .perfil-usuario figure {
     display: flex;
     align-items: center;
@@ -99,7 +88,6 @@ aside.aberto {
     font-size: 1.2rem;
 }
 
-/* Navegação do Menu */
 nav ul {
     list-style: none;
     display: flex;
@@ -123,9 +111,6 @@ nav a:hover, .menu-footer a:hover {
     padding-bottom: 20px;
 }
 
-/* =========================================
-   CONTEÚDO PRINCIPAL (Grade de Álbuns)
-========================================= */
 main {
     flex: 1;
     padding: 40px;
@@ -137,7 +122,6 @@ main {
     display: inline-block;
 }
 
-/* Caixa cinza clara imitando a capa do álbum da imagem */
 .capa-placeholder {
     width: 140px;
     height: 180px;
@@ -160,7 +144,7 @@ main {
 }
 
 .estrelas {
-    color: #FFB800; /* Amarelo clássico das estrelas */
+    color: #FFB800;
     font-size: 1.2rem;
     letter-spacing: 2px;
     margin-top: 4px;
