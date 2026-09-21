@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ressonance</title>
+    <title>Detalhes do Álbum - Resonance</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- CABEÇALHO (O mesmo da página inicial para manter consistência) -->
     <header>
+        <!-- Botão Hambúrguer substituindo a seta -->
         <button id="btn-menu" aria-label="Abrir menu de navegação">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -15,50 +17,52 @@
                 <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
         </button>
-        <h1>Ressonance</h1>
+        <!-- Título agora é um link para a página inicial -->
+        <h1><a href="index.html">Ressonance</a></h1>
     </header>
-    <div class="app-container">
+
+    <div class="app-container layout-album">
         
-        <!-- barra lateral -->
+        <!-- BARRA LATERAL (Copiada do index.html para funcionar aqui também) -->
         <aside id="menu-lateral" class="fechado">
             <section class="perfil-usuario">
                 <figure>
-                    <!-- Ícone de perfil -->
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                     </svg>
                     <figcaption>Nome do Perfil</figcaption>
                 </figure>
             </section>
-
             <nav aria-label="Menu principal">
                 <ul>
-                    <li><a href="#resenhas">Suas Resenhas</a></li>
+                    <li><a href="minhas-resenhas.html">Suas Resenhas</a></li>
                     <li><a href="#adicionar">Adicionar Resenha</a></li>
                 </ul>
             </nav>
-
             <div class="menu-footer">
                 <a href="#sair">Sair</a>
             </div>
         </aside>
 
-        <!-- pagina inicial-->
-        <main>
-            <section class="grade- albuns">
-                <article class="cartao-album">
-                    <figure class="capa-placeholder">
-                        <figcaption>Imagem do álbum</figcaption>
-                    </figure>
-                    <h3>Nome do álbum</h3>
-                    <div class="estrelas" aria-label="Avaliação: 5 de 5 estrelas">
-                        ★★★★★
-                    </div>
-                </article>
+        <main class="conteudo-album">
+            <!-- Os detalhes do álbum (Título, Capa, Sinopse) serão injetados aqui -->
+            <section id="detalhes-topo"></section>
+
+            <!-- Secção de Resenhas dos Utilizadores -->
+            <section class="seccao-resenhas">
+                <div class="cabecalho-resenhas">
+                    <h2>Avaliações de utilizadores</h2>
+                    <button class="btn-avaliar">+ Avaliar</button>
+                </div>
+                <div id="lista-resenhas">
+                    <!-- As resenhas serão injetadas aqui -->
+                </div>
             </section>
         </main>
-
     </div>
-    <script src="script.js"></script>
+
+    <!-- É crucial carregar os dados primeiro, e depois o script da página -->
+    <script src="dados.js"></script>
+    <script src="album.js"></script>
 </body>
 </html>
