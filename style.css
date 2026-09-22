@@ -57,27 +57,25 @@ header h1 {
     overflow: hidden;
 }
 
-/* Estilo do Menu Lateral */
+/* Estilo do Menu Lateral (Atualizado para empurrar a tela) */
 aside {
     background-color: var(--bg-menu);
     width: 280px;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
+    position: relative; /* Removemos o absolute */
+    margin-left: -280px; /* Esconde a barra para a esquerda */
+    transition: margin-left 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 30px 20px;
-    z-index: 10;
     border-right: 1px solid #1a1a1a;
+    flex-shrink: 0; /* Evita que o menu amasse em telas menores */
 }
 
 /* JavaScript para abrir o menu */
 aside.aberto {
-    transform: translateX(0);
+    margin-left: 0; /* Ao voltar para a margem 0, ele empurra o 'main' */
 }
 
 .perfil-usuario figure {
@@ -116,6 +114,7 @@ main {
     padding: 40px;
     background-color: var(--bg-principal);
     overflow-y: auto;
+    width: 100%; /* Garante que o main ocupa todo o espaço deixado pelo menu */
 }
 
 /* 2. O cartão de cada álbum */
@@ -436,9 +435,10 @@ header h1 a {
 /* 1. Grade principal dos álbuns */
 .grade-albuns {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Força exatamente 4 álbuns por fileira */
-    gap: 40px; /* Cria um espaçamento uniforme entre os álbuns */
-    max-width: 1100px; /* Evita que os álbuns fiquem gigantes em monitores largos */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto; /* Isso centraliza os álbuns e remove o espaço vazio à direita */
 }
 
 /* 3. A imagem da capa corrigida */
@@ -449,4 +449,321 @@ header h1 a {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     margin-bottom: 12px; /* Dá um respiro entre a imagem e o título do álbum */
+}
+/* =========================================
+   PÁGINA "SUAS RESENHAS"
+========================================= */
+.container-minhas-resenhas {
+    padding: 40px;
+    max-width: 1000px; /* Limita a largura para o cartão não ficar muito esticado */
+    margin: 0 auto;    /* Centraliza na tela */
+    width: 100%;
+}
+
+.titulo-pagina {
+    color: var(--cor-destaque);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+#lista-minhas-resenhas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartao-minha-resenha {
+    background-color: #D2DCE6; /* A cor da caixa cinza claro */
+    border-radius: 16px;
+    display: flex;
+    align-items: stretch;
+    padding: 15px;
+    gap: 20px;
+    color: #121212; /* Texto escuro para contrastar com o fundo claro */
+}
+
+/* Container da esquerda (Capa, Título e Nota) */
+.info-album-resenha {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 280px; 
+}
+
+.capa-resenha-horizontal {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.textos-album-resenha h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #121212;
+    font-weight: 600;
+}
+
+.nota-resenha {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #525252;
+}
+
+.nota-resenha .estrela-icone {
+    color: #FFB800;
+    font-size: 1.8rem;
+}
+
+/* Container da direita (Texto da resenha) */
+.texto-resenha-usuario {
+    flex: 1; /* Faz o texto preencher todo o resto do espaço disponível */
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1); /* Cria uma linha divisória elegante entre a info e o texto */
+    font-size: 1.15rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #121212;
+}
+
+/* Responsividade (Para não quebrar em telemóveis) */
+@media (max-width: 768px) {
+    .cartao-minha-resenha {
+        flex-direction: column;
+    }
+    .texto-resenha-usuario {
+        border-left: none;
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+        padding-left: 0;
+        padding-top: 15px;
+    }
+}
+
+/* =========================================
+   PÁGINA "ADICIONAR RESENHA"
+========================================= */
+.container-add-resenha {
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.caixa-formulario {
+    background-color: #D2DCE6; /* Fundo cinza claro igual do modelo */
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-input {
+    width: 100%;
+}
+
+.relativo {
+    position: relative;
+}
+
+.input-escuro {
+    width: 100%;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-family: inherit;
+    text-align: center;
+}
+
+.input-escuro::placeholder {
+    color: #FFFFFF;
+}
+
+.textarea-resenha {
+    border-radius: 20px;
+    min-height: 180px;
+    resize: none; /* Impede que o usuário deforme a caixa */
+    text-align: center;
+    padding-top: 75px; /* Centraliza o texto verticalmente como no modelo */
+}
+
+/* Barra de Rolagem (Range) */
+.flex-row {
+    background-color: #000000;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    gap: 15px;
+}
+
+.label-nota {
+    color: #FFFFFF;
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.input-range {
+    flex: 1;
+    cursor: pointer;
+}
+
+.valor-nota {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 35px;
+}
+
+/* Dropdown Autocomplete */
+.dropdown-autocomplete {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background-color: #222222;
+    border-radius: 16px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 50;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.item-autocomplete {
+    padding: 12px 20px;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+    transition: background 0.2s;
+}
+
+.item-autocomplete:hover {
+    background-color: var(--cor-destaque);
+    color: #000;
+}
+
+/* Botão Enviar */
+.btn-enviar {
+    background-color: var(--cor-destaque);
+    color: #000;
+    border: none;
+    padding: 15px;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.btn-enviar:hover {
+    transform: scale(1.05);
+}
+
+/* =========================================
+   CORREÇÃO DO ESPAÇO BRANCO E SCROLLBAR
+========================================= */
+body, html {
+    overflow-x: hidden; /* Impede que o conteúdo vaze para a lateral criando o espaço branco */
+}
+
+/* Estiliza a barra de rolagem para combinar com o site e remover a barra branca */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-principal);
+}
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-destaque);
+}
+
+/* =========================================
+   PÁGINA "MEU PERFIL"
+========================================= */
+.container-perfil {
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.caixa-formulario-perfil {
+    background-color: #D2DCE6;
+    padding: 40px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.caixa-preta-generos {
+    background-color: #000000;
+    border-radius: 20px;
+    padding: 40px 20px;
+    min-height: 200px;
+}
+
+.grid-generos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-genero {
+    background-color: #D2DCE6;
+    color: #000000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px; /* Formato de pílula igual à imagem */
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-genero:hover {
+    transform: scale(1.05);
+}
+
+.btn-genero.selecionado {
+    background-color: var(--cor-destaque); /* Fica roxo quando clicado */
+    color: #FFFFFF;
+}
+
+.btn-salvar-rosa {
+    background-color: #DA70D6; /* Tom de rosa/roxo baseado na referência */
+    color: #000;
+    border: none;
+    padding: 15px 60px;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 30px auto 0; /* Centraliza o botão embaixo da caixa */
+    display: block;
+    transition: transform 0.2s;
+}
+
+.btn-salvar-rosa:hover {
+    transform: scale(1.05);
 }
