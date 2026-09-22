@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <a href="album.html?id=${album.id}" class="link-capa" aria-label="Ver detalhes de ${album.titulo}">
                         <img src="${album.capa}" alt="Capa do álbum ${album.titulo}" class="imagem-capa">
                     </a>
-                    <h3>${album.titulo}</h3>
+                    <h2>${album.titulo}</h2>
                     <p class="ano-genero">${album.ano} • ${album.genero}</p>
                     
                     <div class="estrelas" aria-label="Avaliação média: ${mediaExibicao} de 5">
