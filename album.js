@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. LÓGICA DO MENU LATERAL (Hambúrguer)
+    // 1. MENU LATERAL
     const btnMenu = document.getElementById('btn-menu');
     const menuLateral = document.getElementById('menu-lateral');
     if (btnMenu && menuLateral) {
@@ -9,13 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. LÓGICA DO BOTÃO "+ AVALIAR"
+    // 2. BOTÃO AVALIAR
     const btnAvaliar = document.querySelector('.btn-avaliar');
     if (btnAvaliar) {
         btnAvaliar.addEventListener('click', () => {
             const perfilSalvo = JSON.parse(localStorage.getItem('usuarioPerfil'));
             
-            // Verifica se está logado
             if (perfilSalvo && perfilSalvo.nome) {
                 window.location.href = 'adicionar-resenha.html';
             } else {
@@ -40,30 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Filtra as resenhas
     const resenhasDoAlbum = avaliacoes.filter(av => av.albumId === albumId);
     
-    // Calcula média
     const somaNotas = resenhasDoAlbum.reduce((soma, av) => soma + av.nota, 0);
     const media = resenhasDoAlbum.length > 0 ? (somaNotas / resenhasDoAlbum.length).toFixed(1) : "0.0";
 
-    document.title = `${album.titulo} (${album.ano}) - Resonance`;
+    document.title = `${album.titulo} (${album.ano}) - Ressonance`;
 
-    // Garante que não quebre caso um álbum não tenha a lista de músicas cadastrada
     const musicasArray = album.musicas || [];
     const listaDeMusicasHTML = musicasArray.map((musica, index) => {
         return `<li><span class="numero-faixa">${index + 1}.</span> ${musica}</li>`;
     }).join('');
 
-    // 4. RENDERIZA O TOPO DA PÁGINA (Capa + Faixas)
+    // 4. TOPO DA PÁGINA
     const detalhesTopo = document.getElementById('detalhes-topo');
     detalhesTopo.innerHTML = `
-        <div class="cabecalho-imdb">
-            <div class="titulos-imdb">
+        <div class="cabecalho-detalhes">
+            <div class="titulos-detalhes">
                 <h1 class="titulo-gigante">${album.titulo}</h1>
-                <p class="subtitulo-imdb">${album.ano} • ${album.artista}</p>
+                <p class="subtitulo-detalhes">${album.ano} • ${album.artista}</p>
             </div>
-            <div class="avaliacao-imdb">
+            <div class="avaliacao-detalhes">
                 <div class="nota-destaque">
                     <span class="estrela-grande">★</span>
                     <div class="numeros-nota">
@@ -74,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
 
-        <div class="conteudo-principal-imdb">
+        <div class="conteudo-principal-detalhes">
             <img src="${album.capa}" alt="Capa do álbum ${album.titulo}" class="capa-grande-img">
             
             <div class="informacoes-laterais">
@@ -96,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     `;
 
-    // 5. RENDERIZA A LISTA DE RESENHAS
+    // 5. LISTA DE RESENHAS
     const listaResenhas = document.getElementById('lista-resenhas');
     
     if (resenhasDoAlbum.length === 0) {
@@ -104,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    listaResenhas.innerHTML = ''; // Limpa a lista antes de desenhar
+    listaResenhas.innerHTML = '';
     resenhasDoAlbum.forEach(resenha => {
         const nomeDoAutor = resenha.autor ? resenha.autor : `Utilizador #${resenha.id}`;
         

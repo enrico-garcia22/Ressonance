@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Lógica do Menu Lateral
+    // Menu Lateral
     const btnMenu = document.getElementById('btn-menu');
     const menuLateral = document.getElementById('menu-lateral');
 
@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Puxar Resenhas Reais do Utilizador
+    document.title = "Minhas Resenhas - Ressonance";
+
+    // RESENHAS DO USUARIO
     const containerResenhas = document.getElementById('lista-minhas-resenhas');
     const perfilSalvo = JSON.parse(localStorage.getItem('usuarioPerfil'));
 
@@ -19,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Pega todas as resenhas adicionadas localmente
+    // Resenhas adicionadas localmente
     const todasResenhasLocais = JSON.parse(localStorage.getItem('resenhasAdicionais')) || [];
     
-    // Filtra para pegar APENAS as que tem o mesmo nome do perfil atual
+    // Filtra para pegar apenas as que tem o mesmo nome do perfil atual
     const minhasResenhasReais = todasResenhasLocais.filter(av => av.autor === perfilSalvo.nome);
 
     if (minhasResenhasReais.length === 0) {

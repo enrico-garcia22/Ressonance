@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Álbum - Resonance</title>
+    <title>Detalhes do Álbum - Ressonance</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,6 @@
         <h1><a href="index.html" style="color: inherit; text-decoration: none;">Ressonance</a></h1>
     </header>
 
-    <!-- Adicionado layout-album para manter o fundo escuro -->
     <div class="app-container layout-album">
         
         <!-- BARRA LATERAL -->
@@ -44,23 +43,20 @@
 
         <!-- CONTEÚDO PRINCIPAL DO ÁLBUM -->
         <main class="conteudo-album">
-            <!-- É AQUI que o JavaScript injeta a capa e as músicas -->
             <section id="detalhes-topo"></section>
 
-            <!-- Secção de Resenhas -->
+            <!-- RESENHAS -->
             <section class="seccao-resenhas">
                 <div class="cabecalho-resenhas">
                     <h2>Avaliações de utilizadores</h2>
                     <button class="btn-avaliar">+ Avaliar</button>
                 </div>
                 <div id="lista-resenhas">
-                    <!-- As resenhas serão injetadas aqui -->
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Scripts (Importante manter a ordem) -->
     <script src="barralat.js"></script>
     <script src="dados.js"></script>
     <script src="album.js"></script>

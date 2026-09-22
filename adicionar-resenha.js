@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. VERIFICAÇÃO DE LOGIN: Se não estiver logado, redireciona para o Perfil
+    // 1. VERIFICAÇÃO DE LOGIN
     const perfilSalvo = JSON.parse(localStorage.getItem('usuarioPerfil'));
     
     if (!perfilSalvo || !perfilSalvo.nome) {
         alert("Você precisa criar um perfil antes de adicionar uma resenha!");
         window.location.href = 'meu-perfil.html';
-        return; // Interrompe a execução do resto do código
+        return;
     }
+
+    document.title = "Adicionar Resenha - Ressonance";
 
     // 2. Lógica do Menu
     const btnMenu = document.getElementById('btn-menu');
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target !== inputAlbum) listaAutocomplete.innerHTML = '';
     });
 
-    // 3. Enviar a Resenha Associada ao Perfil
+    // 3. ENVIAR RESENHA
     btnEnviar.addEventListener('click', () => {
         if (!albumSelecionadoId) {
             alert('Por favor, selecione um álbum da lista suspensa.');
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             albumId: albumSelecionadoId,
             nota: parseFloat(rangeNota.value),
             resenha: txtResenha.value.trim(),
-            autor: perfilSalvo.nome // <-- AQUI ASSOCIAMOS O NOME DA PESSOA À RESENHA
+            autor: perfilSalvo.nome
         };
 
         const resenhasAtuais = JSON.parse(localStorage.getItem('resenhasAdicionais')) || [];

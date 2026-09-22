@@ -12,13 +12,14 @@
     box-sizing: border-box;
 }
 
-body {
+body, html {
     background-color: var(--bg-principal);
     color: var(--texto-branco);
     font-family: 'Inter', system-ui, sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 header {
@@ -50,6 +51,12 @@ header h1 {
     font-weight: 500;
 }
 
+header h1 a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .app-container {
     display: flex;
     flex: 1;
@@ -57,25 +64,24 @@ header h1 {
     overflow: hidden;
 }
 
-/* Estilo do Menu Lateral (Atualizado para empurrar a tela) */
+/* Estilo do Menu Lateral */
 aside {
     background-color: var(--bg-menu);
     width: 280px;
     height: 100%;
-    position: relative; /* Removemos o absolute */
-    margin-left: -280px; /* Esconde a barra para a esquerda */
+    position: relative;
+    margin-left: -280px;
     transition: margin-left 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 30px 20px;
     border-right: 1px solid #1a1a1a;
-    flex-shrink: 0; /* Evita que o menu amasse em telas menores */
+    flex-shrink: 0;
 }
 
-/* JavaScript para abrir o menu */
 aside.aberto {
-    margin-left: 0; /* Ao voltar para a margem 0, ele empurra o 'main' */
+    margin-left: 0;
 }
 
 .perfil-usuario figure {
@@ -114,60 +120,59 @@ main {
     padding: 40px;
     background-color: var(--bg-principal);
     overflow-y: auto;
-    width: 100%; /* Garante que o main ocupa todo o espaço deixado pelo menu */
+    width: 100%;
 }
 
-/* 2. O cartão de cada álbum */
+/* Grade de álbuns na página principal */
+.grade-albuns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
 .cartao-album {
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* Se tiver um 'display: inline-block' antigo aqui no seu código, apague-o! */
 }
 
-.capa-placeholder {
-    width: 140px;
-    height: 180px;
-    background-color: #D2DCE6;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-    color: #333;
-    font-size: 0.9rem;
-    font-weight: 500;
+.imagem-capa {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    margin-bottom: 12px;
 }
 
 .cartao-album h3 {
     color: var(--texto-branco);
     font-size: 1rem;
     font-weight: 500;
-    margin-top: 12px;
-}
-
-.estrelas {
-    color: #FFB800; /* Amarelo da estrela */
-    font-size: 1.1rem;
-    font-weight: 600; /* Deixa o número em negrito */
-    display: flex;
-    align-items: center;
-    gap: 6px; /* Espaçamento entre a estrela e o número */
-    margin-top: 8px;
-}
-
-/* Estilo para a nova linha de Ano e Género */
-.ano-genero {
-    font-size: 0.85rem;
-    color: #A0A0A0; /* Cinza mais claro para informações secundárias */
     margin-top: 4px;
 }
 
-/* =========================================
-   PÁGINA DO ÁLBUM (ESTILO IMDB)
-========================================= */
+.estrelas {
+    color: #FFB800;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.ano-genero {
+    font-size: 0.85rem;
+    color: #A0A0A0;
+    margin-top: 4px;
+}
+
+/* PAGINA DE DETALHES DO ALBUM */
 .layout-album {
-    background-color: #000000; /* Fundo mais escuro como o IMDb */
+    background-color: #000000;
     overflow-y: auto;
 }
 
@@ -178,15 +183,7 @@ main {
     width: 100%;
 }
 
-#btn-voltar {
-    background: none;
-    border: none;
-    color: var(--cor-destaque);
-    cursor: pointer;
-}
-
-/* Cabeçalho do Álbum */
-.cabecalho-imdb {
+.cabecalho-detalhes {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -197,15 +194,15 @@ main {
     font-size: 3rem;
     font-weight: 400;
     margin-bottom: 5px;
+    color: var(--texto-branco);
 }
 
-.subtitulo-imdb {
+.subtitulo-detalhes {
     color: #A0A0A0;
     font-size: 1.1rem;
 }
 
-/* Caixa de Avaliação */
-.avaliacao-imdb {
+.avaliacao-detalhes {
     display: flex;
     align-items: center;
 }
@@ -237,37 +234,34 @@ main {
     margin-top: -3px;
 }
 
-/* Estrutura Central (Capa + Info) */
-.conteudo-principal-imdb {
+/* Estrutura a capa ao lado da fista de faixas */
+.conteudo-principal-detalhes {
     display: flex;
-    gap: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
     margin-bottom: 50px;
 }
 
-/* Padroniza as capas na página de detalhes do álbum */
 .capa-grande-img {
     width: 280px;
-    height: 280px; /* Trava a altura para ficar igual à largura */
-    aspect-ratio: 1 / 1; /* Força o formato perfeitamente quadrado */
-    object-fit: cover; /* Evita que a imagem fique esticada ou achatada */
-    border-radius: 4px;
+    height: 280px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
     flex-shrink: 0;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
-/* Transforma o H1 do cabeçalho num link discreto */
-header h1 a {
-    color: var(--cor-destaque);
-    text-decoration: none; /* Remove o sublinhado padrão dos links */
-    cursor: pointer;
-}
-
 .informacoes-laterais {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .tags-genero {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .tag {
@@ -277,13 +271,6 @@ header h1 a {
     font-size: 0.9rem;
     color: #E0E0E0;
     display: inline-block;
-}
-
-.sinopse {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    color: #E0E0E0;
 }
 
 .creditos-linha {
@@ -297,7 +284,7 @@ header h1 a {
     margin-left: 10px;
 }
 
-/* Secção de Resenhas */
+/* Secao de Resenhas */
 .cabecalho-resenhas {
     display: flex;
     justify-content: space-between;
@@ -338,7 +325,6 @@ header h1 a {
     background-color: #333;
 }
 
-/* Cartões de Resenha */
 #lista-resenhas {
     display: flex;
     flex-direction: column;
@@ -371,11 +357,8 @@ header h1 a {
     font-size: 0.9rem;
 }
 
-/* =========================================
-   LISTA DE MÚSICAS (TRACKLIST)
-========================================= */
+/* Lista de Musicas */
 .container-faixas {
-    margin-bottom: 30px;
     background-color: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
     padding: 20px;
@@ -393,12 +376,11 @@ header h1 a {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    max-height: 220px; /* Limita a altura para criar barra de rolagem */
+    max-height: 220px;
     overflow-y: auto;
     padding-right: 10px;
 }
 
-/* Estiliza a barra de rolagem da lista de músicas (Apenas para navegadores Webkit) */
 .lista-musicas::-webkit-scrollbar {
     width: 6px;
 }
@@ -432,31 +414,13 @@ header h1 a {
     display: inline-block;
 }
 
-/* 1. Grade principal dos álbuns */
-.grade-albuns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    max-width: 1100px;
-    margin: 0 auto; /* Isso centraliza os álbuns e remove o espaço vazio à direita */
-}
-
-/* 3. A imagem da capa corrigida */
-.imagem-capa {
-    width: 100%; /* Preenche toda a coluna do grid */
-    aspect-ratio: 1 / 1; /* Força a imagem a ter a mesma altura e largura (quadrado) */
-    object-fit: cover; /* Preenche o quadrado cortando o excesso, ELIMINANDO A DISTORÇÃO */
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    margin-bottom: 12px; /* Dá um respiro entre a imagem e o título do álbum */
-}
-/* =========================================
-   PÁGINA "SUAS RESENHAS"
-========================================= */
-.container-minhas-resenhas {
+/* PAGINAS "SUAS RESENHAS" & "ADICIONAR" & "PERFIL" */
+.container-minhas-resenhas,
+.container-add-resenha,
+.container-perfil {
     padding: 40px;
-    max-width: 1000px; /* Limita a largura para o cartão não ficar muito esticado */
-    margin: 0 auto;    /* Centraliza na tela */
+    max-width: 900px;
+    margin: 0 auto;
     width: 100%;
 }
 
@@ -467,97 +431,9 @@ header h1 a {
     font-weight: 500;
 }
 
-#lista-minhas-resenhas {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.cartao-minha-resenha {
-    background-color: #D2DCE6; /* A cor da caixa cinza claro */
-    border-radius: 16px;
-    display: flex;
-    align-items: stretch;
-    padding: 15px;
-    gap: 20px;
-    color: #121212; /* Texto escuro para contrastar com o fundo claro */
-}
-
-/* Container da esquerda (Capa, Título e Nota) */
-.info-album-resenha {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    min-width: 280px; 
-}
-
-.capa-resenha-horizontal {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.textos-album-resenha h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    color: #121212;
-    font-weight: 600;
-}
-
-.nota-resenha {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #525252;
-}
-
-.nota-resenha .estrela-icone {
-    color: #FFB800;
-    font-size: 1.8rem;
-}
-
-/* Container da direita (Texto da resenha) */
-.texto-resenha-usuario {
-    flex: 1; /* Faz o texto preencher todo o resto do espaço disponível */
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    border-left: 2px solid rgba(0, 0, 0, 0.1); /* Cria uma linha divisória elegante entre a info e o texto */
-    font-size: 1.15rem;
-    line-height: 1.5;
-    font-weight: 500;
-    color: #121212;
-}
-
-/* Responsividade (Para não quebrar em telemóveis) */
-@media (max-width: 768px) {
-    .cartao-minha-resenha {
-        flex-direction: column;
-    }
-    .texto-resenha-usuario {
-        border-left: none;
-        border-top: 2px solid rgba(0, 0, 0, 0.1);
-        padding-left: 0;
-        padding-top: 15px;
-    }
-}
-
-/* =========================================
-   PÁGINA "ADICIONAR RESENHA"
-========================================= */
-.container-add-resenha {
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.caixa-formulario {
-    background-color: #D2DCE6; /* Fundo cinza claro igual do modelo */
+.caixa-formulario,
+.caixa-formulario-perfil {
+    background-color: #D2DCE6;
     padding: 30px;
     border-radius: 20px;
     display: flex;
@@ -592,12 +468,11 @@ header h1 a {
 .textarea-resenha {
     border-radius: 20px;
     min-height: 180px;
-    resize: none; /* Impede que o usuário deforme a caixa */
+    resize: none;
     text-align: center;
-    padding-top: 75px; /* Centraliza o texto verticalmente como no modelo */
+    padding-top: 75px;
 }
 
-/* Barra de Rolagem (Range) */
 .flex-row {
     background-color: #000000;
     border-radius: 40px;
@@ -626,7 +501,6 @@ header h1 a {
     min-width: 35px;
 }
 
-/* Dropdown Autocomplete */
 .dropdown-autocomplete {
     position: absolute;
     top: calc(100% + 5px);
@@ -653,7 +527,6 @@ header h1 a {
     color: #000;
 }
 
-/* Botão Enviar */
 .btn-enviar {
     background-color: var(--cor-destaque);
     color: #000;
@@ -666,55 +539,14 @@ header h1 a {
     transition: transform 0.2s;
     width: 200px;
     margin: 0 auto;
+    display: block;
 }
 
 .btn-enviar:hover {
     transform: scale(1.05);
 }
 
-/* =========================================
-   CORREÇÃO DO ESPAÇO BRANCO E SCROLLBAR
-========================================= */
-body, html {
-    overflow-x: hidden; /* Impede que o conteúdo vaze para a lateral criando o espaço branco */
-}
-
-/* Estiliza a barra de rolagem para combinar com o site e remover a barra branca */
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-principal);
-}
-::-webkit-scrollbar-thumb {
-    background: #222;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--cor-destaque);
-}
-
-/* =========================================
-   PÁGINA "MEU PERFIL"
-========================================= */
-.container-perfil {
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.caixa-formulario-perfil {
-    background-color: #D2DCE6;
-    padding: 40px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* Estilo da pagina de perfil */
 .caixa-preta-generos {
     background-color: #000000;
     border-radius: 20px;
@@ -734,7 +566,7 @@ body, html {
     color: #000000;
     border: none;
     padding: 12px 25px;
-    border-radius: 30px; /* Formato de pílula igual à imagem */
+    border-radius: 30px;
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
@@ -746,12 +578,12 @@ body, html {
 }
 
 .btn-genero.selecionado {
-    background-color: var(--cor-destaque); /* Fica roxo quando clicado */
+    background-color: var(--cor-destaque);
     color: #FFFFFF;
 }
 
 .btn-salvar-rosa {
-    background-color: #DA70D6; /* Tom de rosa/roxo baseado na referência */
+    background-color: #DA70D6;
     color: #000;
     border: none;
     padding: 15px 60px;
@@ -759,11 +591,91 @@ body, html {
     font-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
-    margin: 30px auto 0; /* Centraliza o botão embaixo da caixa */
+    margin: 30px auto 0;
     display: block;
     transition: transform 0.2s;
 }
 
 .btn-salvar-rosa:hover {
     transform: scale(1.05);
+}
+
+/* Cartoes de Minhas Resenhas */
+#lista-minhas-resenhas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartao-minha-resenha {
+    background-color: #D2DCE6;
+    border-radius: 16px;
+    display: flex;
+    align-items: stretch;
+    padding: 15px;
+    gap: 20px;
+    color: #121212;
+}
+
+.info-album-resenha {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 280px;
+}
+
+.capa-resenha-horizontal {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.textos-album-resenha h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #121212;
+    font-weight: 600;
+}
+
+.nota-resenha {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #525252;
+}
+
+.nota-resenha .estrela-icone {
+    color: #FFB800;
+    font-size: 1.8rem;
+}
+
+.texto-resenha-usuario {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.15rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #121212;
+}
+
+/* Scrollbar Geral personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-principal);
+}
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-destaque);
 }

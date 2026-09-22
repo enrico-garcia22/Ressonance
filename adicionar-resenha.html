@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Resenha - Resonance</title>
+    <title>Adicionar Resenha - Ressonance</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -45,20 +45,19 @@
             
             <div class="caixa-formulario">
                 
-                <!-- 1. Campo do Álbum (com container relativo para o dropdown) -->
+                <!-- NOME DO ÁLBUM -->
                 <div class="grupo-input relativo">
                     <input type="text" id="input-album" class="input-escuro" placeholder="Digite o nome do álbum" autocomplete="off">
                     <div id="lista-autocomplete" class="dropdown-autocomplete"></div>
                 </div>
 
-                <!-- 2. Barra de Rolagem (Nota) -->
+                <!-- nOTA -->
                 <div class="grupo-input flex-row">
-                    <div class="label-nota">Barra de rolagem</div>
                     <input type="range" id="range-nota" class="input-range" min="1" max="5" step="0.5" value="3">
                     <span id="display-nota" class="valor-nota">3.0</span>
                 </div>
 
-                <!-- 3. Área da Resenha -->
+                <!-- RESENHA -->
                 <div class="grupo-input">
                     <textarea id="txt-resenha" class="input-escuro textarea-resenha" placeholder="Digite a resenha do álbum"></textarea>
                 </div>

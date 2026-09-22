@@ -1,5 +1,4 @@
 const albuns = [
-    // --- OS SEUS 3 ÁLBUNS ORIGINAIS ---
     {
         id: 1, titulo: "Ten", artista: "Pearl Jam", ano: 1991, genero: "Grunge", capa: "img/Ten.jpg",
         musicas: ["Once", "Even Flow", "Alive", "Why Go", "Black", "Jeremy", "Oceans", "Porch", "Garden", "Deep", "Release"]
@@ -12,8 +11,6 @@ const albuns = [
         id: 3, titulo: "Good Kid, M.A.A.D City", artista: "Kendrick Lamar", ano: 2012, genero: "Hip-Hop", capa: "img/GKMC.jpeg",
         musicas: ["Sherane a.k.a Master Splinter's Daughter", "Bitch, Don't Kill My Vibe", "Backseat Freestyle", "The Art of Peer Pressure", "Money Trees", "Poetic Justice", "good kid", "m.A.A.d city", "Swimming Pools (Drank)", "Sing About Me, I'm Dying of Thirst", "Real", "Compton"]
     },
-    
-    // --- 27 NOVOS ÁLBUNS (DIVERSIDADE DE GÊNEROS) ---
     {
         id: 4, titulo: "The Dark Side of the Moon", artista: "Pink Floyd", ano: 1973, genero: "Progressive Rock", capa: "img/DarkSide.png",
         musicas: ["Speak to Me", "Breathe", "On the Run", "Time", "The Great Gig in the Sky", "Money", "Us and Them", "Any Colour You Like", "Brain Damage", "Eclipse"]
@@ -124,7 +121,7 @@ const albuns = [
     }
 ];
 
-// 2. Base Original de Avaliações (As primeiras de cada um dos seus 3 álbuns originais)
+// 2. Base de Avaliações
 const avaliacoes = [
     { id: 101, albumId: 1, nota: 5.0, resenha: "Um álbum que define toda uma geração. A voz de Eddie Vedder está no seu auge." },
     { id: 102, albumId: 1, nota: 4.5, resenha: "Guitarras melancólicas e letras profundas. 'Black' é a melhor faixa." },
@@ -145,11 +142,7 @@ const avaliacoes = [
     { id: 115, albumId: 3, nota: 5.0, resenha: "Clássico instantâneo. Essencial para qualquer fã de música." }
 ];
 
-// =======================================================================
-// 3. SEEDER DE OTIMIZAÇÃO: GERADOR DETERMINÍSTICO DE RESENHAS
-// =======================================================================
-// Para preencher os 30 álbuns sem deixar o arquivo gigante, este script 
-// calcula 10 resenhas para os álbuns 1,2,3 e 15 resenhas para os novos álbuns.
+//"Gerador de Resenhas" - Apenas para preencher a página
 const textosBons = [
     "Simplesmente uma obra-prima. As letras e a produção são de outro nível.",
     "Um clássico moderno. Escuto repetidas vezes e não me canso.",
@@ -168,27 +161,23 @@ const textosMedios = [
 ];
 
 albuns.forEach(album => {
-    // Para os álbuns 1 a 3 (que já têm 5 resenhas), criamos apenas mais 10.
-    // Para os novos (4 a 30), criamos 15.
     const qtdParaGerar = (album.id <= 3) ? 10 : 15;
     
     for (let i = 0; i < qtdParaGerar; i++) {
-        // Cálculo pseudorandômico (sem usar Math.random) para que as resenhas
-        // sejam sempre EXATAMENTE AS MESMAS quando a página for recarregada.
         const pseudoRandom = ((album.id * 17) + (i * 23)) % 100;
         
         let nota, texto;
 
         if (pseudoRandom < 25) {
-            nota = 3.5 + ((i % 2) * 0.5); // Dá 3.5 ou 4.0
+            nota = 3.5 + ((i % 2) * 0.5);
             texto = textosMedios[pseudoRandom % textosMedios.length];
         } else {
-            nota = 4.0 + ((i % 3) * 0.5); // Dá 4.0, 4.5 ou 5.0
+            nota = 4.0 + ((i % 3) * 0.5);
             texto = textosBons[pseudoRandom % textosBons.length];
         }
 
         avaliacoes.push({
-            id: 2000 + (album.id * 100) + i, // Cria IDs organizados (ex: 2100, 2101)
+            id: 2000 + (album.id * 100) + i,
             albumId: album.id,
             nota: nota,
             resenha: texto
@@ -196,8 +185,6 @@ albuns.forEach(album => {
     }
 });
 
-// =======================================================================
-// 4. RECUPERAÇÃO DE DADOS LOCAIS (Resenhas feitas pelo formulário)
-// =======================================================================
+// Adiciona as resenhas feitas pelo usuário
 const resenhasExtras = JSON.parse(localStorage.getItem('resenhasAdicionais')) || [];
 avaliacoes.push(...resenhasExtras);

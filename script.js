@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Lógica do Menu Lateral
+    // Menu Lateral
     const btnMenu = document.getElementById('btn-menu');
     const menuLateral = document.getElementById('menu-lateral');
 
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Função para calcular a média das notas de um álbum específico
+    // Calcular a média das notas de um álbum específico
     function calcularMediaAlbum(idDoAlbum) {
         const avaliacoesDoAlbum = avaliacoes.filter(av => av.albumId === idDoAlbum);
         if (avaliacoesDoAlbum.length === 0) return "0.0";
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const perfilSalvo = JSON.parse(localStorage.getItem('usuarioPerfil'));
         const generosPreferidos = perfilSalvo && perfilSalvo.generos ? perfilSalvo.generos : [];
 
-        // 2. Cria uma lista de álbuns já com a média calculada em formato numérico
+        // 2. Cria uma lista de álbuns com a média calculada
         const albunsComMedia = albuns.map(album => {
             return {
                 ...album,
@@ -38,16 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const albunsPreferidos = albunsComMedia.filter(album => generosPreferidos.includes(album.genero));
         const outrosAlbuns = albunsComMedia.filter(album => !generosPreferidos.includes(album.genero));
 
-        // 4. Ordena ambos os grupos pela nota (Decrescente: Maior -> Menor)
+        // 4. Ordena ambos os grupos pela nota
         albunsPreferidos.sort((a, b) => b.mediaNota - a.mediaNota);
         outrosAlbuns.sort((a, b) => b.mediaNota - a.mediaNota);
 
-        // 5. Junta os dois grupos (Preferidos primeiro, seguidos do resto)
+        // 5. Junta os dois grupos
         const albunsOrdenados = [...albunsPreferidos, ...outrosAlbuns];
 
         // 6. Desenha os cartões na tela
         albunsOrdenados.forEach(album => {
-            // Formata a nota para exibir sempre 1 casa decimal (ex: 4.0, 4.5)
             const mediaExibicao = album.mediaNota.toFixed(1);
             
             const cartaoHTML = `
@@ -68,6 +67,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Executa a função inicial
     renderizarCatalogo();
 });
